@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @used_object.name
+%p
+  %b Description:
+  = @used_object.description
+
+= link_to 'Edit', edit_used_object_path(@used_object)
+\|
+= link_to 'Back', used_objects_path
