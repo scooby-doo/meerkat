@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate!
+  #before_filter :authenticate_company!
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   # GET /projects
   # GET /projects.json

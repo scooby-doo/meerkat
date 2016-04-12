@@ -18,4 +18,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate!
+    :authenticate_user! || :authenticate_company!
+  end
+
+  alias_method :devise_current_user, :current_user
+  def current_user
+    devise_current_user || current_company
+  end
+
 end

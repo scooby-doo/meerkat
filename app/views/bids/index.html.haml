@@ -1,0 +1,31 @@
+%h1 Listing bids
+
+%table
+  %thead
+    %tr
+      %th Details
+      %th Price
+      %th Period
+      %th Owner
+      %th Owner type
+      %th Project
+      %th
+      %th
+      %th
+
+  %tbody
+    - @bids.each do |bid|
+      %tr
+        %td= bid.details
+        %td= bid.price
+        %td= bid.period
+        %td= bid.owner_id
+        %td= bid.owner_type
+        %td= bid.project_id
+        %td= link_to 'Show', bid
+        %td= link_to 'Edit', edit_bid_path(bid)
+        %td= link_to 'Destroy', bid, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Bid', new_bid_path

@@ -6,6 +6,7 @@ class Company < ActiveRecord::Base
   validates :name, presence: true
   validates :details, presence: true
 
+  has_many :bids, as: :owner, :dependent => :destroy
 
   after_create :send_admin_mail
   def send_admin_mail
@@ -22,6 +23,10 @@ class Company < ActiveRecord::Base
     else 
       super # Use whatever other message 
     end 
+  end
+
+  def fullname
+    name
   end
 
   def self.send_reset_password_instructions(attributes={})
