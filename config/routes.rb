@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  resources :bids
   resources :used_objects
-  resources :projects
+  resources :projects do
+    resources :bids, only: :create
+  end
   resources :supporting_files
   devise_for :companies
   devise_for :users

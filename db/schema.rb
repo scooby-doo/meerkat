@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412123150) do
+ActiveRecord::Schema.define(version: 20160412181303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,19 @@ ActiveRecord::Schema.define(version: 20160412123150) do
   end
 
   add_index "attachinary_files", ["attachinariable_type", "attachinariable_id", "scope"], name: "by_scoped_parent", using: :btree
+
+  create_table "bids", force: :cascade do |t|
+    t.text     "details"
+    t.decimal  "price",      precision: 15, scale: 2
+    t.integer  "period"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.integer  "project_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "bids", ["owner_id"], name: "index_bids_on_owner_id", using: :btree
 
   create_table "companies", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -62,10 +75,6 @@ ActiveRecord::Schema.define(version: 20160412123150) do
   end
 
   create_table "supporting_files", force: :cascade do |t|
-    t.string   "file_id"
-    t.string   "file_name"
-    t.integer  "file_size"
-    t.string   "content_type"
     t.integer  "owner_to_id"
     t.string   "owner_to_type"
     t.datetime "created_at",        null: false

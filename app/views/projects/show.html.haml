@@ -11,11 +11,29 @@
 -if @project.supporting_files.empty? == false
   %b Files
   %br
-    = @project.supporting_files.each do |file|
+    - @project.supporting_files.each do |file|
       = link_to file.file_file_name, file.file.url
       -if current_user == @project.user
         = link_to 'Delete', supporting_file_path(file, :owner_id => @project.id, :owner_type => 'project'), :method => :delete
       %br
+
+%p
+-if @project.bids.empty? == false
+  %br Bids
+  - @project.bids.each do |bid|
+    = bid.details
+    = bid.price
+    = bid.period
+    %br
+
+%br
+Enter your Bid:
+= simple_form_for [@project, Bid.new] do |f|
+  = f.text_field :details, required: true
+  = f.input :price, required: true
+  = f.input :period, required: true
+  =f.button :submit, 'Bid'
+
 -if current_user == @project.user
   = link_to 'Edit', edit_project_path(@project)
 \|
