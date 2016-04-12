@@ -11,6 +11,10 @@ class UsedObjectsController < ApplicationController
   # GET /used_objects/1.json
   def show
     @used_object = UsedObject.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json {render json: @used_object}
+    end
   end
 
   # GET /used_objects/new
@@ -30,6 +34,11 @@ class UsedObjectsController < ApplicationController
     @used_object.user = current_user
     respond_to do |format|
       if @used_object.save
+        if params[:supporting_files]
+          params[:supporting_files].each { |file| 
+            @used_object.supporting_files.create(file: file)
+          }
+        end
         format.html { redirect_to @used_object, notice: 'Used object was successfully created.' }
         format.json { render :show, status: :created, location: @used_object }
       else
@@ -44,6 +53,11 @@ class UsedObjectsController < ApplicationController
   def update
     respond_to do |format|
       if @used_object.update(used_object_params)
+        if params[:supporting_files]
+          params[:supporting_files].each { |file| 
+            @used_object.supporting_files.create(file: file)
+          }
+        end
         format.html { redirect_to @used_object, notice: 'Used object was successfully updated.' }
         format.json { render :show, status: :ok, location: @used_object }
       else
@@ -71,6 +85,7 @@ class UsedObjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def used_object_params
-      params.require(:used_object).permit(:name, :description)
+      params.require(:used_object).permit(
+        :name, :description, :supporting_files)
     end
 end

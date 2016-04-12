@@ -1,4 +1,4 @@
-= form_for @used_object do |f|
+= form_for @used_object, :html => {:multipart => true} do |f|
   - if @used_object.errors.any?
     #error_explanation
       %h2= "#{pluralize(@used_object.errors.count, "error")} prohibited this used_object from being saved:"
@@ -12,5 +12,8 @@
   .field
     = f.label :description
     = f.text_field :description
+  .field
+    = file_field_tag "supporting_files[]", type: :file, multiple: true
+
   .actions
     = f.submit 'Save'

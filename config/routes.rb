@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :used_objects
   resources :projects
-  resources :files
+  resources :supporting_files
   devise_for :companies
   devise_for :users
 

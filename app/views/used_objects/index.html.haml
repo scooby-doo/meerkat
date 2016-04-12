@@ -15,8 +15,9 @@
         %td= used_object.name
         %td= used_object.description
         %td= link_to 'Show', used_object
-        %td= link_to 'Edit', edit_used_object_path(used_object)
-        %td= link_to 'Destroy', used_object, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        -if current_user == used_object.user
+          %td= link_to 'Edit', edit_used_object_path(used_object)
+          %td= link_to 'Delete', used_object, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

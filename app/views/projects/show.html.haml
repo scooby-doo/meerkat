@@ -7,5 +7,16 @@
   %b Description:
   = @project.description
 
-= link_to 'Edit', edit_project_path(@project)
+%p
+-if @project.supporting_files.empty? == false
+  %b Files
+  %br
+    = @project.supporting_files.each do |file|
+      = link_to file.file_file_name, file.file.url
+      -if current_user == @project.user
+        = link_to 'Delete', supporting_file_path(file, :owner_id => @project.id, :owner_type => 'project'), :method => :delete
+      %br
+-if current_user == @project.user
+  = link_to 'Edit', edit_project_path(@project)
+\|
 = link_to 'Back', projects_path
