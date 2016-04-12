@@ -1,5 +1,5 @@
 .navbar.navbar-default
-  .container
+  .container-fluid
     .navbar-header
       .navbar-brand= link_to 'Meerkat', root_path
     .navbar-collapse
@@ -13,6 +13,7 @@
             = link_to 'All Used Objects', used_objects_path
           %li
             = link_to 'Add Used Object', new_used_object_path
+      %ul
         .navbar.navbar-nav.navbar-right
           %li
             - if user_signed_in?
