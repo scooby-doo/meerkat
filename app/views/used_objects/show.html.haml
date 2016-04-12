@@ -1,0 +1,22 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @used_object.name
+%p
+  %b Description:
+  = @used_object.description
+
+%p
+-if @used_object.supporting_files.empty? == false
+  %b Files
+  %br
+    = @used_object.supporting_files.each do |file|
+      = link_to file.file_file_name, file.file.url
+      -if current_user == @used_object.user
+        = link_to 'Delete', supporting_file_path(file, :owner_id => @used_object.id, :owner_type => 'used_object'), :method => :delete
+      %br
+-if current_user == @used_object.user
+  = link_to 'Edit', edit_used_object_path(@used_object)
+\|
+= link_to 'Back', used_objects_path
