@@ -1,24 +1,21 @@
-%h1 Listing used_objects
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th
-      %th
-      %th
-
-  %tbody
-    - @used_objects.each do |used_object|
-      %tr
-        %td= used_object.name
-        %td= used_object.description
-        %td= link_to 'Show', used_object
-        -if current_user == used_object.user
-          %td= link_to 'Edit', edit_used_object_path(used_object)
-          %td= link_to 'Delete', used_object, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
+.container
+  %h1 Listing used objects
+  - @used_objects.each do |used_object|
+    .panel.panel-default
+      .panel-heading
+        .panel-title
+          %p
+            = used_object.name
+      .panel-body
+        %p
+          = used_object.description
+        %p
+          = "Create by" + used_object.user.fullname
+      .panel-footer
+        %p
+          = link_to 'Show', used_object
+          -if current_user == used_object.user
+            = link_to 'Edit', edit_used_object_path(used_object)
+            = link_to 'Delete', used_object, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 = link_to 'New Used object', new_used_object_path
