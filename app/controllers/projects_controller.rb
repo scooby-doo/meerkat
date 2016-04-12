@@ -11,6 +11,10 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     @project = Project.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json {render json: @project}
+    end
   end
 
   # GET /projects/new
@@ -30,6 +34,11 @@ class ProjectsController < ApplicationController
     @project.user = current_user
     respond_to do |format|
       if @project.save
+        if params[:supporting_files]
+          params[:supporting_files].each { |file| 
+            @project.supporting_files.create(file: file)
+          }
+        end
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
@@ -44,6 +53,11 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
+        if params[:supporting_files]
+          params[:supporting_files].each { |file|
+            @project.supporting_files.create(file: file)
+          }
+        end
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
@@ -71,6 +85,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, :files)
+      params.require(:project).permit(
+        :name, :description, :supporting_files)
     end
 end

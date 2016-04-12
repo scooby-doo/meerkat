@@ -19,4 +19,7 @@ class User < ActiveRecord::Base
     used_objects
   end
 
+  def fullname
+    "#{first_name} #{last_name}"
+  end
 end

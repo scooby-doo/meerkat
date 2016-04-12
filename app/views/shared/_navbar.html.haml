@@ -10,12 +10,13 @@
           %li
             = link_to 'Create New Project', new_project_path
           %li
-            = link_to 'All Used Projects', used_objects_path
+            = link_to 'All Used Objects', used_objects_path
           %li
             = link_to 'Add Used Object', new_used_object_path
         .navbar.navbar-nav.navbar-right
           %li
             - if user_signed_in?
+              = current_user.fullname
               = link_to 'Logout', destroy_user_session_path, method: :delete
               -#= link_to 'My Account', user_path(current_user)
             - elsif company_signed_in?
