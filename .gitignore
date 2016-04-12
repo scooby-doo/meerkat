@@ -17,4 +17,4 @@
 /config/application.yml
 /config/secrets.yml
 
-/public
+/public/system
