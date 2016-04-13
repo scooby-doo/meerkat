@@ -10,7 +10,8 @@
         %p
           = used_object.description
         %p
-          = "Create by" + used_object.user.fullname
+          Create by:
+          = link_to used_object.user.fullname, edit_user_path(used_object.user)
       .panel-footer
         %p
           = link_to 'Show', used_object

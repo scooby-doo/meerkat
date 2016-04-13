@@ -1,0 +1,11 @@
+.container
+  %h1
+    =@user.fullname
+  %h5
+    =@user.rating
+    %br
+    Portfolio: 
+    = auto_link(@user.portfolio, :all, link_attr=nil)
+    %br
+    - if @user.isDesigner
+      User is Designer

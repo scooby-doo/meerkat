@@ -10,7 +10,8 @@
         %p
           = project.description
         %p
-          = "Create by" + project.user.fullname
+          created by:
+          = link_to project.user.fullname, user_path(project.user)
       .panel-footer
         %p
           = link_to 'Show', project

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :supporting_files
   devise_for :companies
   devise_for :users
+  resources :users
 
 
   root to: "pages#landing"
